@@ -1,0 +1,13 @@
+
+.env
+.env.local
+.env.*.local
+*.env
+*.pem
+*.key
+*.cert
+config/*secrets.exs
+
+node_modules/
+jspm_packages/
+
