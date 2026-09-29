@@ -2,6 +2,6 @@ const express = require('express')
 const _ = express.Router()
 const Authentication = require("./api/index")
 
-_.use(`${process.env.API_KEY}`, Authentication)
+_.use("/api/v1", Authentication)
 
 module.exports = _

@@ -1,10 +1,12 @@
 // this is a post method
 
+const userSchema = require("../Models/userSchema");
 const emialRegex = require("../utiles/emailrejex");
 const passwordRegex = require("../utiles/passwordRegex");
+const bcrypt = require('bcrypt');
 
 
-const registrationControllers=(req,res)=>{
+const registrationControllers= async(req,res)=>{
      let { username, email, password} = req.body
 console.log( req.body);
 
@@ -24,7 +26,22 @@ else if(!password){
     res.send("strong password requied")
 }
 else{
-    console.log(req.body)
+  bcrypt.hash(password, 10, function(err, hash) {
+    console.log(hash);
+     
+
+   const data = new userSchema({
+        username:username,
+        email:email,
+        password: hash
+    })
+    data.save()
+    res.send(data)
+    
+});
+
+   
+   
 }
 
 }
