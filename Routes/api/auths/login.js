@@ -1,7 +1,8 @@
 const express = require('express')
+const bcrypt = require('bcrypt');
 const logincoltrollers = require('../../../Controllers/loginController')
 const _ = express.Router()
 
-_.get("/login", logincoltrollers )
+_.post("/login", logincoltrollers )
 
 module.exports = _
