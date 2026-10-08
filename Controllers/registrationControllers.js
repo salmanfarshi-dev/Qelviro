@@ -2,8 +2,11 @@
 
 const userSchema = require("../Models/userSchema");
 const emialRegex = require("../utiles/emailrejex");
+const emailSender = require("../utiles/emailSentder");
 const passwordRegex = require("../utiles/passwordRegex");
 const bcrypt = require("bcrypt");
+const otpGenerator = require("otp-generator");
+
 
 const registrationControllers = async (req, res) => {
   let { username, email, password } = req.body;
@@ -24,11 +27,20 @@ const registrationControllers = async (req, res) => {
     if (existinguser.length > 0) {
       res.send("Data Already Existed");
     } else {
-      bcrypt.hash(password, 10, function (err, hash) {
+      bcrypt.hash(password, 10,   function (err, hash) {
+        let otp = otpGenerator.generate(6, {
+          upperCaseAlphabets: false,
+          specialChars: false,
+          lowerCaseAlphabets: false,
+        });
+
+        console.log(otp);
+
         const data = new userSchema({
           username: username,
           email: email,
           password: hash,
+          otp: otp,
         });
 
         data.save();
@@ -37,6 +49,13 @@ const registrationControllers = async (req, res) => {
           email: data.email,
           success: "data sent  successfully",
         });
+
+        // send email
+
+        emailSender(email, otp)
+       
+
+       
       });
     }
   }
