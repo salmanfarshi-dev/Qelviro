@@ -19,22 +19,25 @@ const logincoltrollers = async (req, res) => {
   } else {
     let exsitingdata = await userSchema.find({ email: email });
     if (exsitingdata.length > 0) {
-      bcrypt.compare(password, exsitingdata[0].password, function (err, result) {
-       if(err){
-
-         res.send({ error: "Invalid Creandiential" });
-        }else{
-          if(result){
-            res.send({success: "Login successfully"})
-          }else{
-          res.send({ error: "Invalid Creandiential" });
-
-        }
-       
-        
-       }
-      });
-    
+      bcrypt.compare(
+        password,
+        exsitingdata[0].password,
+        function (err, result) {
+          if (err) {
+            res.send({ error: "Invalid Creandiential" });
+          } else {
+            if (result) {
+              if (exsitingdata[0].emailVerification) {
+                  res.send({ success: "Login successfully" });
+              } else {
+                res.send({ error: "Email verification failed" });
+              }
+            } else {
+              res.send({ error: "Invalid Creandiential" });
+            }
+          }
+        },
+      );
     } else {
       res.send({ error: "Invalid Creandiential" });
     }

@@ -11,12 +11,15 @@ const otpController = async (req, res) => {
 
    if(existingdata.length > 0 ){
     if(existingdata[0].otp == otp){
-    res.send("data paoa gece")
+
+      await userSchema.findOneAndUpdate({email:email}, {otp: ""})
+      await userSchema.findOneAndUpdate({email:email}, {emailVerification: true})
+    res.send({success:"OTP Match"})
    }else{
-    res.send("data paoa jai nai")
+    res.send({error:"OTP Not Match"})
    }
    }else{
-    res.send("Invalid Creandiential")
+    res.send({error:"Invalid Creandiential"})
    }
   
 };
