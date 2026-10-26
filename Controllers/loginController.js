@@ -28,13 +28,22 @@ const logincoltrollers = async (req, res) => {
           } else {
             if (result) {
               if (exsitingdata[0].emailVerification) {
-                  res.send({ success: "Login successfully" });
+                  res.send({
+                     success: "Login successfully" ,
+                     id: exsitingdata[0]._id,
+                     email: exsitingdata[0].email,
+                     username: exsitingdata[0].username,
+                     emailVerification: exsitingdata[0].emailVerification,
+                    });
               } else {
                 res.send({ error: "Email verification failed" });
               }
             } else {
               res.send({ error: "Invalid Creandiential" });
             }
+
+            console.log(exsitingdata);
+            
           }
         },
       );
