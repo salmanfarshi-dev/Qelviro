@@ -20,6 +20,4 @@ app.listen(port, () => {
 })
 
 
-// username: Qulviro-ecommerce,
-// password : JUlPkav7hhaNCzCq
-// url : mongodb+srv://Qulviro-ecommerce:JUlPkav7hhaNCzCq@cluster0.jyqbbup.mongodb.net/test?appName=Cluster0
+
