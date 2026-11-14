@@ -6,6 +6,9 @@ const Otp = require("./auths/otp")
 const Forgetpassword = require("./auths/forgetpassword")
 const Resetpassword = require ("./auths/resetpassword..js")
 const Createcategory = require ("./products/createcategory.js")
+const Viewcategory = require ("./products/viewcategory.js")
+
+
 
 _.use("/authentication", Registration)
 _.use("/authentication", Login)
@@ -14,6 +17,7 @@ _.use("/authentication" , Forgetpassword)
 _.use("/authentication" , Resetpassword)
 
 _.use("/product" , Createcategory)
+_.use("/product" , Viewcategory)
 
 
 module.exports = _

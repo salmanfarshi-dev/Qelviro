@@ -10,7 +10,7 @@ const categorySchema = new Schema({
         unique: true
     },
 
-    categoryid:{
+    categoryownerid:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "userlists"
     }

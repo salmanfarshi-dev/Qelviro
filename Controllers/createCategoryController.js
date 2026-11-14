@@ -1,9 +1,8 @@
-
 const categorySchema = require("../Models/categorySchema");
 
 const createCategoryController = async (req, res) => {
   try {
-    let { categoryname } = req.body;
+    let { categoryname , categoryownerid} = req.body;
 
     if (!categoryname || !categoryname.trim()) {
       return res.status(400).json({
@@ -32,6 +31,7 @@ const createCategoryController = async (req, res) => {
     // Create new category
     const category = new categorySchema({
       categoryname: categoryname.toLowerCase(),
+      categoryownerid,
     });
 
     await category.save();
@@ -41,9 +41,7 @@ const createCategoryController = async (req, res) => {
       message: "Category created successfully!",
       data: category,
     });
-
   } catch (error) {
-
     // MongoDB duplicate key error
     if (error.code === 11000) {
       return res.status(409).json({
