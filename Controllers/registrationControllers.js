@@ -61,13 +61,13 @@ const registrationControllers = async (req, res) => {
       token: token,
     });
   } catch (error) {
-    console.log(error);
+  console.log("Registration Error:", error);
 
-    return res.status(500).send({
-      success: false,
-      message: "Registration failed",
-    });
-  }
+  return res.status(500).send({
+    success: false,
+    message: error.message,
+  });
+}
 };
 
 module.exports = registrationControllers;
